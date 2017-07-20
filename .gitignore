@@ -1,0 +1,8 @@
+src/Test.It.While.Hosting.Your.Web.Application/bin/
+src/Test.It.While.Hosting.Your.Web.Application/obj/
+tests/Test.It.While.Hosting.Your.Web.Application.Tests/obj/
+tests/Test.It.While.Hosting.Your.Web.Application.Tests/bin/
+packages/
+!tools/**
+tests/WebApi.Test.Application/bin/
+tests/WebApi.Test.Application/obj/
