@@ -1,11 +1,13 @@
 ﻿using Owin;
+using SimpleInjector;
 using Test.It.Specifications;
-using Test.It.Starters;
+using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 using WebApi.Test.Application;
 
 namespace Test.It.While.Hosting.Your.Web.Application.Tests
 {
-    internal class WebApiTestApplicationStarter : IApplicationStarter
+    internal class WebApiTestApplicationStarter<TApplication> : IWebApplicationStarter
+        where TApplication : IApplication, new()
     {
         private readonly ITestConfigurer _testConfigurer;
 
@@ -16,8 +18,15 @@ namespace Test.It.While.Hosting.Your.Web.Application.Tests
 
         public void Start(IAppBuilder applicationBuilder)
         {
-            var testApplication = new TestApplication(_testConfigurer);
-            testApplication.Configuration(applicationBuilder);
+            var testApplication = new TApplication();
+            applicationBuilder.CatchExceptions(testApplication.HttpConfiguration);
+
+            testApplication.Configure(applicationBuilder, Reconfigure);
+        }
+
+        private void Reconfigure(Container container)
+        {
+            _testConfigurer.Configure(new SimpleInjectorServiceContainer(container));
         }
     }
 }

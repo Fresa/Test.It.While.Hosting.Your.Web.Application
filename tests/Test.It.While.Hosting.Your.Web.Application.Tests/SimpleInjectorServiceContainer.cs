@@ -1,8 +1,7 @@
 using System;
 using SimpleInjector;
-using Test.It;
 
-namespace WebApi.Test.Application
+namespace Test.It.While.Hosting.Your.Web.Application.Tests
 {
     internal class SimpleInjectorServiceContainer : IServiceContainer
     {

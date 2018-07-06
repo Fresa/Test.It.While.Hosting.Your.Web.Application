@@ -6,3 +6,4 @@ packages/
 !tools/**
 tests/WebApi.Test.Application/bin/
 tests/WebApi.Test.Application/obj/
+.vs/
