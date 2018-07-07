@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Test.It.While.Hosting.Your.Web.Application.Tests
 {
-    public partial class Given_a_foo_bar_application
+    namespace Given_a_foo_bar_application
     {
         public class When_getting_a_bar_from_foo :
             XUnitWindowsServiceSpecification<

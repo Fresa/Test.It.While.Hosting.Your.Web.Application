@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Test.It.While.Hosting.Your.Web.Application.Tests
 {
-    public partial class Given_a_exception_throwing_application
+    namespace Given_a_exception_throwing_application
     {
         public class When_initializing_the_application :
             XUnitWindowsServiceSpecification<
