@@ -11,6 +11,8 @@
     <RepositoryUrl>https://github.com/Fresa/Test.It.While.Hosting.Your.Web.Application</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/Fresa/Test.It.While.Hosting.Your.Web.Application/blob/master/LICENSE</PackageLicenseUrl>
     <Copyright>Copyright © 2017 Fredrik Arvidsson</Copyright>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Test.It" version="2.1.0" />
@@ -21,5 +23,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="6.0.4" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.3" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63102-01" PrivateAssets="All" />
   </ItemGroup>
 </Project>
