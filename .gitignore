@@ -7,3 +7,9 @@ packages/
 tests/WebApi.Test.Application/bin/
 tests/WebApi.Test.Application/obj/
 .vs/
+tests/Test.It.While.Hosting.Your.Web.Application..Core.Tests/bin/
+tests/Test.It.While.Hosting.Your.Web.Application..Core.Tests/obj/
+tests/Test.It.While.Hosting-Your.WebApplication.Utils/bin/
+tests/Test.It.While.Hosting-Your.WebApplication.Utils/obj/
+tests/WebApi.Core.Test.Application/bin/
+tests/WebApi.Core.Test.Application/obj/

@@ -1,13 +1,11 @@
-﻿using System.Net;
-using System.Web.Http;
-using System.Web.Http.Description;
-using System.Web.Http.Results;
+﻿using Microsoft.AspNetCore.Mvc;
 using Test.It.While.Hosting.Your.Web.Application.Utils;
 using Test.It.While.Hosting.Your.Web.Application.Utils.Services;
 
-namespace WebApi.Test.Application.Controllers
+namespace WebApi.Core.Test.Application.Controllers
 {
-    public class FooController : ApiController
+    [ApiController]
+    public class FooController : ControllerBase
     {
         private readonly IService _service;
 
@@ -15,20 +13,17 @@ namespace WebApi.Test.Application.Controllers
         {
             _service = service;
         }
-
+        
         [HttpGet]
         [Route("foo/{id}/bar", Name = "Bar")]
-        [ResponseType(typeof(BarResponse))]
-        public IHttpActionResult Bar([FromUri] string id)
+        public ActionResult<BarResponse> Get(string id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = _service.Get(id);
-
-            return new NegotiatedContentResult<BarResponse>(HttpStatusCode.OK, result, this);
+            return _service.Get(id);
         }
     }
 }

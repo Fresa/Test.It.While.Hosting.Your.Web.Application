@@ -1,4 +1,4 @@
-namespace WebApi.Test.Application.Services
+namespace Test.It.While.Hosting.Your.Web.Application.Utils.Services
 {
     public interface IService
     {

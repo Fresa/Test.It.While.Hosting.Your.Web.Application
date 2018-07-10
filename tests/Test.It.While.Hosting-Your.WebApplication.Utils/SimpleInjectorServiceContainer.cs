@@ -1,9 +1,9 @@
 using System;
 using SimpleInjector;
 
-namespace Test.It.While.Hosting.Your.Web.Application.Tests
+namespace Test.It.While.Hosting.Your.Web.Application.Utils
 {
-    internal class SimpleInjectorServiceContainer : IServiceContainer
+    public class SimpleInjectorServiceContainer : IServiceContainer
     {
         private readonly Container _container;
 

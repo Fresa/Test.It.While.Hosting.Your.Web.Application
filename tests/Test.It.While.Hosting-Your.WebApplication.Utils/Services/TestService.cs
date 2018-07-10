@@ -1,10 +1,8 @@
 ﻿using System;
-using WebApi.Test.Application;
-using WebApi.Test.Application.Services;
 
-namespace Test.It.While.Hosting.Your.Web.Application.Tests
+namespace Test.It.While.Hosting.Your.Web.Application.Utils.Services
 {
-    internal class TestService : IService
+    public class TestService : IService
     {
         private readonly string _testData;
 

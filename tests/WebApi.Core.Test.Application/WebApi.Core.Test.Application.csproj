@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.1" />
+    <PackageReference Include="SimpleInjector" version="4.0.8" />
+    <PackageReference Include="Test.It" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Test.It.While.Hosting.Your.Web.Application\Test.It.While.Hosting.Your.Web.Application.csproj" />
+    <ProjectReference Include="..\Test.It.While.Hosting-Your.WebApplication.Utils\Test.It.While.Hosting.Your.Web.Application.Utils.csproj" />
+  </ItemGroup>
+
+</Project>

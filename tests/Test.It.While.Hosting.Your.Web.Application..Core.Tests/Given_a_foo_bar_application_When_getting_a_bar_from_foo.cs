@@ -4,18 +4,16 @@ using FluentAssertions;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 using Test.It.While.Hosting.Your.Web.Application.Utils;
 using Test.It.While.Hosting.Your.Web.Application.Utils.Services;
-using WebApi.Test.Application;
+using WebApi.Core.Test.Application;
 using Xunit;
 
-namespace Test.It.While.Hosting.Your.Web.Application.Tests
+namespace Test.It.While.Hosting.Your.Web.Application.Core.Tests
 {
     public partial class Given_a_foo_bar_application
     {
         public class When_getting_a_bar_from_foo :
             XUnitWindowsServiceSpecification<
-                DefaultWebApplicationHostStarter<
-                    WebApiTestWebApplicationBuilder<
-                        FooBarApplication>>>
+                DefaultWebApplicationHostStarter<Startup>>
         {
             private string _idUsedToGet;
             private BarResponse _content;

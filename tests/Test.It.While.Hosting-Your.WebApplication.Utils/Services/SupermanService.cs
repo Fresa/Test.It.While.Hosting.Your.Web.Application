@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace WebApi.Test.Application.Services
+namespace Test.It.While.Hosting.Your.Web.Application.Utils.Services
 {
-    internal class SupermanService :  IService
+    public class SupermanService :  IService
     {
         private readonly IMaidService _maidService;
 

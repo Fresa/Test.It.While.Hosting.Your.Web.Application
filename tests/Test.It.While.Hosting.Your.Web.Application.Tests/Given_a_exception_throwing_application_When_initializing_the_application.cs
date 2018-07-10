@@ -1,6 +1,7 @@
 ﻿using System;
-using Should. Fluent;
+using FluentAssertions;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
+using Test.It.While.Hosting.Your.Web.Application.Utils;
 using WebApi.Test.Application;
 using Xunit;
 
@@ -31,7 +32,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Tests
             [Fact]
             public void It_should_catch_an_exception_during_setup()
             {
-                _exceptionCaught.Should().Not.Be.Null();
+                _exceptionCaught.Should().NotBeNull();
             }
         }
     }

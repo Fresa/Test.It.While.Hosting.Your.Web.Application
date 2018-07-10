@@ -1,6 +1,6 @@
-﻿namespace WebApi.Test.Application.Services
+﻿namespace Test.It.While.Hosting.Your.Web.Application.Utils.Services
 {
-    internal class Service : IService
+    public class Service : IService
     {
         public BarResponse Get(string id)
         {

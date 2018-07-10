@@ -4,7 +4,7 @@ using System.Web.Http;
 using Owin;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
-using WebApi.Test.Application.Services;
+using Test.It.While.Hosting.Your.Web.Application.Utils.Services;
 
 namespace WebApi.Test.Application
 {

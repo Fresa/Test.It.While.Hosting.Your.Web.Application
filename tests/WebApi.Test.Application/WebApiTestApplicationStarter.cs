@@ -1,10 +1,11 @@
 ﻿using Owin;
 using SimpleInjector;
 using Test.It.Specifications;
+using Test.It.While.Hosting.Your.Web.Application;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
-using WebApi.Test.Application;
+using Test.It.While.Hosting.Your.Web.Application.Utils;
 
-namespace Test.It.While.Hosting.Your.Web.Application.Tests
+namespace WebApi.Test.Application
 {
     internal class WebApiTestApplicationStarter<TApplication> : IWebApplicationStarter
         where TApplication : IApplication, new()

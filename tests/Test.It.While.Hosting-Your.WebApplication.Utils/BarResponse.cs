@@ -1,4 +1,4 @@
-﻿namespace WebApi.Test.Application
+﻿namespace Test.It.While.Hosting.Your.Web.Application.Utils
 {
     public class BarResponse
     {

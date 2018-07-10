@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using Should. Fluent;
+using FluentAssertions;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
+using Test.It.While.Hosting.Your.Web.Application.Utils;
 using WebApi.Test.Application;
 using Xunit;
 
@@ -33,25 +34,25 @@ namespace Test.It.While.Hosting.Your.Web.Application.Tests
 
             protected override void When()
             {
-                _result = Client.GetAsync("foo/fooId/bar").Result;
+                _result = Client.GetAsync("foo/fooId/bar").ConfigureAwait(false).GetAwaiter().GetResult();
             }
 
             [Fact]
             public void It_should_have_caught_an_exception()
             {
-                _exceptionCaught.Should().Not.Be.Null();
+                _exceptionCaught.Should().NotBeNull();
             }
 
             [Fact]
             public void It_should_have_received_consuelas_message()
             {
-                _exceptionCaught.Message.Should().Equal("Misser Superman no here.");
+                _exceptionCaught.Message.Should().Be("Misser Superman no here.");
             }
 
             [Fact]
             public void It_should_have_gotten_internal_server_error_during_call()
             {
-                _result.StatusCode.Should().Equal(HttpStatusCode.InternalServerError);
+                _result.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
             }
         }
     }
