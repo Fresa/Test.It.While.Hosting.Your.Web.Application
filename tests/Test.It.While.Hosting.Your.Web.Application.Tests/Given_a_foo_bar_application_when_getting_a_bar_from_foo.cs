@@ -13,7 +13,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Tests
     public partial class Given_a_foo_bar_application2
     {
         public class When_getting_a_bar_from_foo :
-            XUnitWindowsServiceSpecificationAsync<
+            XUnitWindowsServiceSpecification<
                 DefaultWebApplicationHostStarter<
                     WebApiTestWebApplicationBuilder<
                         FooBarApplication>>>

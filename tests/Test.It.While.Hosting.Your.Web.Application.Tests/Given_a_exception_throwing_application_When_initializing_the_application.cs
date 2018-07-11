@@ -10,7 +10,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Tests
     public partial class Given_a_exception_throwing_application2
     {
         public class When_initializing_the_application :
-            XUnitWindowsServiceSpecificationAsync<
+            XUnitWindowsServiceSpecification<
                 DefaultWebApplicationHostStarter<
                     WebApiTestWebApplicationBuilder<
                         ExceptionThrowingDuringSetupApplication>>>

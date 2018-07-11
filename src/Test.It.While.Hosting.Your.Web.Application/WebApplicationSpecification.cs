@@ -8,12 +8,12 @@ using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 
 namespace Test.It.While.Hosting.Your.Web.Application
 {
-    public abstract class WebApplicationSpecificationAsync<TWebApplicationHostStarter> : IDisposable
+    public abstract class WebApplicationSpecification<TWebApplicationHostStarter> : IDisposable
         where TWebApplicationHostStarter : IWebApplicationHostStarter, new()
     {
         private readonly ConcurrentBag<Exception> _exceptions = new ConcurrentBag<Exception>();
 
-        public async Task SetConfiguration(TWebApplicationHostStarter webHostingFixture)
+        public async Task SetConfigurationAsync(TWebApplicationHostStarter webHostingFixture)
         {
             webHostingFixture.OnUnhandledException += RegisterException;
 

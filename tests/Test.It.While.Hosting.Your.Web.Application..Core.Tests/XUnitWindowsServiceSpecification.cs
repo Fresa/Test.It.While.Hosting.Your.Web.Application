@@ -4,15 +4,15 @@ using Xunit;
 
 namespace Test.It.While.Hosting.Your.Web.Application.Utils
 {
-    public abstract class XUnitWindowsServiceSpecificationAsync<TWebApplicationStarter> : WebApplicationSpecificationAsync<TWebApplicationStarter>, IAsyncLifetime
+    public abstract class XUnitWindowsServiceSpecification<TWebApplicationStarter> : WebApplicationSpecification<TWebApplicationStarter>, IAsyncLifetime
         where TWebApplicationStarter : class, IWebApplicationHostStarter, new()
     {
         private TWebApplicationStarter _configuration;
 
-        protected async Task SetConfiguration()
+        protected async Task SetConfigurationAsync()
         {
             _configuration = new TWebApplicationStarter();
-            await SetConfiguration(_configuration);
+            await SetConfigurationAsync(_configuration);
         }
 
         protected override void Dispose(bool disposing)
@@ -21,7 +21,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Utils
             base.Dispose(disposing);
         }
 
-        public virtual async Task InitializeAsync() => await SetConfiguration();
+        public virtual async Task InitializeAsync() => await SetConfigurationAsync();
 
         public Task DisposeAsync() => Task.CompletedTask;
     }
