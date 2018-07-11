@@ -53,16 +53,22 @@ namespace Test.It.While.Hosting.Your.Web.Application.HostStarters
 
         public HttpClient Start(ITestConfigurer testConfigurer)
         {
-            void Startup(IApplicationBuilder appBuilder)
+            if (_testServer == null)
             {
-                appBuilder.Properties[OwinProperties.ExceptionHandler] = OnUnhandledException;
-            }
+                void Startup(IApplicationBuilder appBuilder)
+                {
+                    appBuilder.Properties[OwinProperties.ExceptionHandler] = OnUnhandledException;
+                }
 
-            var webHostBuilder = new WebHostBuilder()
-                .Configure(Startup)
-                .UseStartup<TApplication>()
-                .ConfigureServices(collection => { testConfigurer.Configure(new WebApiServiceContainer(collection)); });
-            _testServer = new TestServer(webHostBuilder);
+                var webHostBuilder = new WebHostBuilder()
+                    .Configure(Startup)
+                    .UseStartup<TApplication>()
+                    .ConfigureServices(collection =>
+                    {
+                        testConfigurer.Configure(new WebApiServiceContainer(collection));
+                    });
+                _testServer = new TestServer(webHostBuilder);
+            }
 
             return _testServer.CreateClient();
         }

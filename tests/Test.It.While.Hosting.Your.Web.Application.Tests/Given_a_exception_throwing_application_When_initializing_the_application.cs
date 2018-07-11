@@ -1,33 +1,25 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
-using Test.It.While.Hosting.Your.Web.Application.Utils;
 using WebApi.Test.Application;
 using Xunit;
 
 namespace Test.It.While.Hosting.Your.Web.Application.Tests
 {
-    public partial class Given_a_exception_throwing_application
+    public partial class Given_a_exception_throwing_application2
     {
         public class When_initializing_the_application :
-            XUnitWindowsServiceSpecification<
+            XUnitWindowsServiceSpecificationAsync<
                 DefaultWebApplicationHostStarter<
                     WebApiTestWebApplicationBuilder<
                         ExceptionThrowingDuringSetupApplication>>>
         {
-            private readonly Exception _exceptionCaught;
+            private Exception _exceptionCaught;
 
-            public When_initializing_the_application() : base(false)
-            {
-                try
-                {
-                    SetConfiguration();
-                }
-                catch (Exception ex)
-                {
-                    _exceptionCaught = ex;
-                }
-            }
+            public override async Task InitializeAsync() => await base.InitializeAsync()
+                .ContinueWith(task => _exceptionCaught = task.Exception?.InnerException,
+                    TaskContinuationOptions.OnlyOnFaulted);
 
             [Fact]
             public void It_should_catch_an_exception_during_setup()

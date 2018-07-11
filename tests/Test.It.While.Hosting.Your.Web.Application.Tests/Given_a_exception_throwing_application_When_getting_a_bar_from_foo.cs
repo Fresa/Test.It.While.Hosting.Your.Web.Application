@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
-using Test.It.While.Hosting.Your.Web.Application.Utils;
 using WebApi.Test.Application;
 using Xunit;
 
@@ -12,41 +12,32 @@ namespace Test.It.While.Hosting.Your.Web.Application.Tests
     public partial class Given_a_exception_throwing_application
     {
         public class When_getting_a_bar_from_foo :
-            XUnitWindowsServiceSpecification<
+            XUnitWindowsServiceSpecificationAsync<
                 DefaultWebApplicationHostStarter<
                     WebApiTestWebApplicationBuilder<
                         ExceptionThrowingDuringCallApplication>>>
         {
-            private readonly Exception _exceptionCaught;
             private HttpResponseMessage _result;
+            private Exception _exception;
 
-            public When_getting_a_bar_from_foo() : base(false)
-            {
-                try
-                {
-                    SetConfiguration();
-                }
-                catch (Exception exception)
-                {
-                    _exceptionCaught = exception;
-                }
-            }
+            public override async Task InitializeAsync() => await base.InitializeAsync()
+                .ContinueWith(task => _exception = task.Exception?.InnerException, TaskContinuationOptions.OnlyOnFaulted);
 
-            protected override void When()
+            protected override async Task WhenAsync()
             {
-                _result = Client.GetAsync("foo/fooId/bar").ConfigureAwait(false).GetAwaiter().GetResult();
+                _result = await Client.GetAsync("foo/fooId/bar");
             }
 
             [Fact]
             public void It_should_have_caught_an_exception()
             {
-                _exceptionCaught.Should().NotBeNull();
+                _exception.Should().NotBeNull();
             }
 
             [Fact]
             public void It_should_have_received_consuelas_message()
             {
-                _exceptionCaught.Message.Should().Be("Misser Superman no here.");
+                _exception.Message.Should().Be("Misser Superman no here.");
             }
 
             [Fact]

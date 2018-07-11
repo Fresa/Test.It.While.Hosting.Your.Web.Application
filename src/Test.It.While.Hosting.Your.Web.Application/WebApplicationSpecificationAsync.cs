@@ -3,24 +3,25 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.ExceptionServices;
+using System.Threading.Tasks;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 
 namespace Test.It.While.Hosting.Your.Web.Application
 {
-    public abstract class WebApplicationSpecification<TWebApplicationHostStarter> : IUseConfiguration<TWebApplicationHostStarter>
+    public abstract class WebApplicationSpecificationAsync<TWebApplicationHostStarter> : IDisposable
         where TWebApplicationHostStarter : IWebApplicationHostStarter, new()
     {
         private readonly ConcurrentBag<Exception> _exceptions = new ConcurrentBag<Exception>();
 
-        public void SetConfiguration(TWebApplicationHostStarter webHostingFixture)
+        public async Task SetConfiguration(TWebApplicationHostStarter webHostingFixture)
         {
             webHostingFixture.OnUnhandledException += RegisterException;
 
             Client = webHostingFixture.Start(new SimpleTestConfigurer(Given));
 
-            When();
+            await WhenAsync();
 
-            HandleExceptions();
+            ThrowOnExceptions();
         }
 
         private void RegisterException(Exception exception)
@@ -37,7 +38,7 @@ namespace Test.It.While.Hosting.Your.Web.Application
             }
         }
 
-        private void HandleExceptions()
+        private void ThrowOnExceptions()
         {
             if (_exceptions.Any() == false)
             {
@@ -66,6 +67,19 @@ namespace Test.It.While.Hosting.Your.Web.Application
         /// <summary>
         /// Application has started and can be called with <see cref="Client"/>.
         /// </summary>
-        protected virtual void When() { }
+        protected virtual async Task WhenAsync()
+        {
+            await Task.CompletedTask;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            Client?.Dispose();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
     }
 }

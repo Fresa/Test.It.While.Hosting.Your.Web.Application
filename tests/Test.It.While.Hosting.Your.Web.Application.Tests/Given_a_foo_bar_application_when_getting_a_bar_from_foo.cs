@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 using Test.It.While.Hosting.Your.Web.Application.Utils;
@@ -9,10 +10,10 @@ using Xunit;
 
 namespace Test.It.While.Hosting.Your.Web.Application.Tests
 {
-    public partial class Given_a_foo_bar_application
+    public partial class Given_a_foo_bar_application2
     {
         public class When_getting_a_bar_from_foo :
-            XUnitWindowsServiceSpecification<
+            XUnitWindowsServiceSpecificationAsync<
                 DefaultWebApplicationHostStarter<
                     WebApiTestWebApplicationBuilder<
                         FooBarApplication>>>
@@ -29,10 +30,10 @@ namespace Test.It.While.Hosting.Your.Web.Application.Tests
                 configurer.RegisterSingleton<IService>(() => service);
             }
 
-            protected override void When()
+            protected override async Task WhenAsync()
             {
-                _response = Client.GetAsync("foo/fooId/bar").ConfigureAwait(false).GetAwaiter().GetResult();
-                _content = _response.Content.ReadAsAsync<BarResponse>().ConfigureAwait(false).GetAwaiter().GetResult();
+                _response = await Client.GetAsync("foo/fooId/bar");
+                _content = await _response.Content.ReadAsAsync<BarResponse>();
             }
 
             [Fact]
