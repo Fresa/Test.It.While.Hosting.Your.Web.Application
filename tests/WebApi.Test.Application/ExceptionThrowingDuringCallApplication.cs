@@ -14,8 +14,8 @@ namespace WebApi.Test.Application
 
         public void Configure(IAppBuilder appBuilder, Action<Container> reconfigure)
         {
-            appBuilder.UseWebApi(HttpConfiguration);
             ConfigureApplication(reconfigure);
+            appBuilder.UseWebApi(HttpConfiguration);
         }
 
         private void ConfigureApplication(Action<Container> reconfigure)

@@ -20,8 +20,9 @@ namespace WebApi.Test.Application
         public void Start(IAppBuilder applicationBuilder)
         {
             var testApplication = new TApplication();
-            applicationBuilder.CatchExceptions(testApplication.HttpConfiguration);
-
+            var exceptionHandler = applicationBuilder.GetTestExceptionHandler();
+            testApplication.HttpConfiguration.InterceptExceptionHandler(exceptionHandler);
+            
             testApplication.Configure(applicationBuilder, Reconfigure);
         }
 

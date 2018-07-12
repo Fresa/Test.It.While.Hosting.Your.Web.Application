@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -18,10 +20,10 @@ namespace Test.It.While.Hosting.Your.Web.Application.Tests
                         ExceptionThrowingDuringCallApplication>>>
         {
             private HttpResponseMessage _result;
-            private Exception _exception;
+            private ReadOnlyCollection<Exception> _exceptions;
 
             public override async Task InitializeAsync() => await base.InitializeAsync()
-                .ContinueWith(task => _exception = task.Exception?.InnerException, TaskContinuationOptions.OnlyOnFaulted);
+                .ContinueWith(task => _exceptions = task.Exception?.Flatten().InnerExceptions);
 
             protected override async Task WhenAsync()
             {
@@ -31,13 +33,13 @@ namespace Test.It.While.Hosting.Your.Web.Application.Tests
             [Fact]
             public void It_should_have_caught_an_exception()
             {
-                _exception.Should().NotBeNull();
+                _exceptions.Should().HaveCount(1);
             }
 
             [Fact]
             public void It_should_have_received_consuelas_message()
             {
-                _exception.Message.Should().Be("Misser Superman no here.");
+                _exceptions.Single().Message.Should().Be("Misser Superman no here.");
             }
 
             [Fact]

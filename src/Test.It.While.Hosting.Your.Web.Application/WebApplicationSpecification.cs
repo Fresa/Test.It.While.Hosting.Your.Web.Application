@@ -21,7 +21,7 @@ namespace Test.It.While.Hosting.Your.Web.Application
 
             await WhenAsync();
 
-            ThrowOnExceptions();
+            await ThrowOnExceptions();
         }
 
         private void RegisterException(Exception exception)
@@ -32,25 +32,25 @@ namespace Test.It.While.Hosting.Your.Web.Application
                 return;
             }
 
-            foreach (var innerException in aggregateException.InnerExceptions)
+            foreach (var innerException in aggregateException.Flatten().InnerExceptions)
             {
                 _exceptions.Add(innerException);
             }
         }
 
-        private void ThrowOnExceptions()
+        private Task ThrowOnExceptions()
         {
             if (_exceptions.Any() == false)
             {
-                return;
+                return Task.CompletedTask;
             }
 
             if (_exceptions.Count == 1)
             {
-                ExceptionDispatchInfo.Capture(_exceptions.First()).Throw();
+                return Task.FromException(ExceptionDispatchInfo.Capture(_exceptions.First()).SourceException);
             }
 
-            throw new AggregateException(_exceptions);
+            return Task.FromException(new AggregateException(_exceptions));
         }
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace Test.It.While.Hosting.Your.Web.Application
         /// <summary>
         /// Application has started and can be called with <see cref="Client"/>.
         /// </summary>
-        protected virtual async Task WhenAsync()
+        protected virtual Task WhenAsync()
         {
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
         protected virtual void Dispose(bool disposing)
