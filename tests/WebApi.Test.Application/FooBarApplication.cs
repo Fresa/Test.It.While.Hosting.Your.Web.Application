@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using Microsoft.Owin;
 using Owin;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using Test.It.While.Hosting.Your.Web.Application.Utils.Services;
+using WebApi.Test.Application;
 
+[assembly: OwinStartup(typeof(FooBarApplication))]
 namespace WebApi.Test.Application
 {
     public class FooBarApplication : IApplication
     {
         public HttpConfiguration HttpConfiguration { get; } = new HttpConfiguration();
+
+        public void Configuration(IAppBuilder appBuilder) => Configure(appBuilder, container => { });
 
         public void Configure(IAppBuilder appBuilder, Action<Container> reconfigure)
         {
