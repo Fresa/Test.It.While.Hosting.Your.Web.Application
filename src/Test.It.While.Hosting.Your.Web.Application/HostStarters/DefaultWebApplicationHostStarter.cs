@@ -39,7 +39,6 @@ namespace Test.It.While.Hosting.Your.Web.Application.HostStarters
 
 #if NETCOREAPP2_1
 using System.Net.Http;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Test.It.Specifications;
@@ -55,18 +54,13 @@ namespace Test.It.While.Hosting.Your.Web.Application.HostStarters
         {
             if (_testServer == null)
             {
-                void Startup(IApplicationBuilder appBuilder)
-                {
-                    appBuilder.Properties[OwinProperties.ExceptionHandler] = OnUnhandledException;
-                }
-
                 var webHostBuilder = new WebHostBuilder()
-                    .Configure(Startup)
                     .UseStartup<TApplication>()
-                    .ConfigureServices(collection =>
+                    .ConfigureServices(services =>
                     {
-                        testConfigurer.Configure(new WebApiServiceContainer(collection));
+                        testConfigurer.Configure(new WebApiServiceContainer(services));
                     });
+
                 _testServer = new TestServer(webHostBuilder);
             }
 

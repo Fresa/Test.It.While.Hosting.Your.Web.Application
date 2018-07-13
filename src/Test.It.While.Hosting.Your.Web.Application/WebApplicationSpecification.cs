@@ -26,13 +26,18 @@ namespace Test.It.While.Hosting.Your.Web.Application
 
         private void RegisterException(Exception exception)
         {
+            if (_exceptions.Contains(exception))
+            {
+                return;
+            }
+
             if (!(exception is AggregateException aggregateException))
             {
                 _exceptions.Add(exception);
                 return;
             }
 
-            foreach (var innerException in aggregateException.Flatten().InnerExceptions)
+            foreach (var innerException in aggregateException.Flatten().InnerExceptions.Where(innerException => _exceptions.Contains(innerException) == false))
             {
                 _exceptions.Add(innerException);
             }
