@@ -12,7 +12,10 @@ namespace WebApi.Test.Application
     {
         public HttpConfiguration HttpConfiguration { get; } = new HttpConfiguration();
 
-        public void Configure(IAppBuilder appBuilder, Action<Container> reconfigure)
+        // ReSharper disable once UnusedMember.Global Used by Owin host
+        public void Configure(IAppBuilder appBuilder) => Configuration(appBuilder, container => { });
+
+        public void Configuration(IAppBuilder appBuilder, Action<Container> reconfigure)
         {
             appBuilder.UseWebApi(HttpConfiguration);
             ConfigureApplication(reconfigure);

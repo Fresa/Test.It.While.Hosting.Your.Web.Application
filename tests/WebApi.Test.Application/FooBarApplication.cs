@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Net.Http.Formatting;
 using System.Web.Http;
-using Microsoft.Owin;
 using Owin;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using Test.It.While.Hosting.Your.Web.Application.Utils.Services;
-using WebApi.Test.Application;
 
-[assembly: OwinStartup(typeof(FooBarApplication))]
 namespace WebApi.Test.Application
 {
     public class FooBarApplication : IApplication
     {
         public HttpConfiguration HttpConfiguration { get; } = new HttpConfiguration();
 
-        public void Configuration(IAppBuilder appBuilder) => Configure(appBuilder, container => { });
+        // ReSharper disable once UnusedMember.Global Used by Owin host
+        public void Configuration(IAppBuilder appBuilder) => Configuration(appBuilder, container => { });
 
-        public void Configure(IAppBuilder appBuilder, Action<Container> reconfigure)
+        public void Configuration(IAppBuilder appBuilder, Action<Container> reconfigure)
         {
             ConfigureApplication(reconfigure);
             appBuilder.UseWebApi(HttpConfiguration);

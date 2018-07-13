@@ -23,7 +23,7 @@ namespace WebApi.Test.Application
             var exceptionHandler = applicationBuilder.GetTestExceptionHandler();
             testApplication.HttpConfiguration.InterceptExceptionHandler(exceptionHandler);
             
-            testApplication.Configure(applicationBuilder, Reconfigure);
+            testApplication.Configuration(applicationBuilder, Reconfigure);
         }
 
         private void Reconfigure(Container container)
