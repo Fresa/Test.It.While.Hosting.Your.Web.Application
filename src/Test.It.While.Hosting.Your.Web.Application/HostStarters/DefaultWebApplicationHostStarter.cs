@@ -1,4 +1,4 @@
-﻿#if NET47
+﻿#if NET462
 using System.Net.Http;
 using Microsoft.Owin.Testing;
 using Owin;

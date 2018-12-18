@@ -1,4 +1,4 @@
-﻿#if NET47
+﻿#if NET462
 using Owin;
 
 namespace Test.It.While.Hosting.Your.Web.Application.HostStarters
