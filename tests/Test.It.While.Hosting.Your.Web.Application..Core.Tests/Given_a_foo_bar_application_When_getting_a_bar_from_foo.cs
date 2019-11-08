@@ -5,8 +5,8 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 using Test.It.While.Hosting.Your.Web.Application.Utils;
-using Test.It.While.Hosting.Your.Web.Application.Utils.Services;
 using WebApi.Core.Test.Application;
+using WebApi.Core.Test.Application.Services;
 using Xunit;
 
 namespace Test.It.While.Hosting.Your.Web.Application.Core.Tests

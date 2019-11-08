@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Test.It.While.Hosting.Your.Web.Application.Utils.Services;
+using WebApi.Core.Test.Application.Services;
 
 namespace WebApi.Core.Test.Application
 {

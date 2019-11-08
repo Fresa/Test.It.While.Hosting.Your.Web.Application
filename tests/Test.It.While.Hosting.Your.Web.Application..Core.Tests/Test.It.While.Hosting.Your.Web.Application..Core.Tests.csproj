@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Test.It.While.Hosting.Your.Web.Application\Test.It.While.Hosting.Your.Web.Application.csproj" />
-    <ProjectReference Include="..\Test.It.While.Hosting-Your.WebApplication.Utils\Test.It.While.Hosting.Your.Web.Application.Utils.csproj" />
     <ProjectReference Include="..\WebApi.Core.Test.Application\WebApi.Core.Test.Application.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Test.It.While.Hosting.Your.Web.Application.Utils;
-using Test.It.While.Hosting.Your.Web.Application.Utils.Services;
+using WebApi.Core.Test.Application.Services;
 
 namespace WebApi.Core.Test.Application.Controllers
 {
