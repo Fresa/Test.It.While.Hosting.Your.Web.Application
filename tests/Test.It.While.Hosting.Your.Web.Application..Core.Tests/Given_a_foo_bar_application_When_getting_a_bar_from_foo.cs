@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -29,9 +30,9 @@ namespace Test.It.While.Hosting.Your.Web.Application.Core.Tests
                 configurer.RegisterSingleton<IService>(() => service);
             }
 
-            protected override async Task WhenAsync()
+            protected override async Task WhenAsync(CancellationToken cancellationToken)
             {
-                _response = await Client.GetAsync("foo/fooId/bar");
+                _response = await Client.GetAsync("foo/fooId/bar", cancellationToken);
                 _content = JsonConvert.DeserializeObject<BarResponse>(await _response.Content.ReadAsStringAsync());
             }
 
@@ -48,7 +49,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Core.Tests
             }
 
             [Fact]
-            public void It_should_rrequest_foo_with_id()
+            public void It_should_request_foo_with_id()
             {
                 _idUsedToGet.Should().Be("fooId");
             }

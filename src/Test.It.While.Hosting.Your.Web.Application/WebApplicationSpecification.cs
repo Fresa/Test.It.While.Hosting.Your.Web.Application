@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.ExceptionServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 
@@ -13,15 +14,20 @@ namespace Test.It.While.Hosting.Your.Web.Application
     {
         private readonly ConcurrentBag<Exception> _exceptions = new ConcurrentBag<Exception>();
 
-        public async Task SetConfigurationAsync(TWebApplicationHostStarter webHostingFixture)
+        public async Task SetConfigurationAsync(
+            TWebApplicationHostStarter webHostingFixture, 
+            CancellationToken cancellationToken = default)
         {
             webHostingFixture.OnUnhandledException += RegisterException;
 
             Client = webHostingFixture.Start(new SimpleTestConfigurer(Given));
 
+            await WhenAsync(cancellationToken);
+            // ReSharper disable once MethodSupportsCancellation
+            // Support simple override option that does not enforce optional arguments to be defined
             await WhenAsync();
 
-            await ThrowOnExceptions();
+            HandleExceptions();
         }
 
         private void RegisterException(Exception exception)
@@ -43,19 +49,19 @@ namespace Test.It.While.Hosting.Your.Web.Application
             }
         }
 
-        private Task ThrowOnExceptions()
+        private void HandleExceptions()
         {
             if (_exceptions.Any() == false)
             {
-                return Task.CompletedTask;
+                return;
             }
 
             if (_exceptions.Count == 1)
             {
-                return Task.FromException(ExceptionDispatchInfo.Capture(_exceptions.First()).SourceException);
+                ExceptionDispatchInfo.Capture(_exceptions.First()).Throw();
             }
 
-            return Task.FromException(new AggregateException(_exceptions));
+            throw new AggregateException(_exceptions);
         }
 
         /// <summary>
@@ -68,6 +74,14 @@ namespace Test.It.While.Hosting.Your.Web.Application
         /// </summary>
         /// <param name="configurer">Service container</param>
         protected virtual void Given(IServiceContainer configurer) { }
+
+        /// <summary>
+        /// Application has started and can be called with <see cref="Client"/>.
+        /// </summary>
+        protected virtual Task WhenAsync(CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
+        }
 
         /// <summary>
         /// Application has started and can be called with <see cref="Client"/>.
