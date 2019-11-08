@@ -1,8 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Internal;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApi.Core.Test.Application
@@ -11,18 +9,16 @@ namespace WebApi.Core.Test.Application
     {
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
             return services.BuildServiceProvider(validateScopes: true);
         }
 
         public void Configure(IApplicationBuilder app)
         {
-            Configure(app, new HostingEnvironment());
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            app.UseMvc();
+            app
+                .UseRouting()
+                .UseEndpoints(routeBuilder =>
+                    routeBuilder.MapControllers());
         }
     }
 }

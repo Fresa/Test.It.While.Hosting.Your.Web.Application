@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Newtonsoft.Json;
 using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 using Test.It.While.Hosting.Your.Web.Application.Utils;
 using Test.It.While.Hosting.Your.Web.Application.Utils.Services;
@@ -31,7 +32,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Core.Tests
             protected override async Task WhenAsync()
             {
                 _response = await Client.GetAsync("foo/fooId/bar");
-                _content = await _response.Content.ReadAsAsync<BarResponse>();
+                _content = JsonConvert.DeserializeObject<BarResponse>(await _response.Content.ReadAsStringAsync());
             }
 
             [Fact]

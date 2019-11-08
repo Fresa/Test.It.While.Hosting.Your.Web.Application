@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>NET462;NETCOREAPP2.1</TargetFrameworks>
+    <TargetFrameworks>NETCOREAPP3.0</TargetFrameworks>
     <PackageReleaseNotes />
     <PackageVersion></PackageVersion>
     <Version>1.0.0</Version>
@@ -13,31 +13,16 @@
     <Copyright>Copyright © 2017 Fredrik Arvidsson</Copyright>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <Configurations>Debug;Release;DEBUG_NET462;DEBUG_NETCORE21</Configurations>
+    <Configurations>Debug;Release;</Configurations>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Test.It" version="2.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63102-01" PrivateAssets="All" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'NETCOREAPP2.1'">
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.1" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'NET462'">
-    <PackageReference Include="Owin" Version="1.0" />
-    <PackageReference Include="Microsoft.Owin" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Owin.Hosting" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Owin.Testing" Version="3.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="6.0.4" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.3" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.3" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.0.0" />
   </ItemGroup>
   <PropertyGroup Condition="'$(NCrunch)' == '1'">
     <EnableSourceControlManagerQueries>false</EnableSourceControlManagerQueries>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DEBUG_NET462|NET462|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NET462</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='DEBUG_NETCORE21|NETCOREAPP2.1|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NETCOREAPP2_1</DefineConstants>
   </PropertyGroup>
 </Project>

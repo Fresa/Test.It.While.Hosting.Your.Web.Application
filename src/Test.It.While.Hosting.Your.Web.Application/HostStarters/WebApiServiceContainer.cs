@@ -1,5 +1,4 @@
-﻿#if NETCOREAPP2_1
-using System;
+﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -37,7 +36,8 @@ namespace Test.It.While.Hosting.Your.Web.Application.HostStarters
             _serviceCollection.Replace(ServiceDescriptor.Singleton(provider => configurer()));
         }
 
-        public void RegisterSingleton<TService, TImplementation>() where TService : class where TImplementation : class, TService
+        public void RegisterSingleton<TService, TImplementation>()
+            where TService : class where TImplementation : class, TService
         {
             _serviceCollection.Replace(ServiceDescriptor.Singleton<TService, TImplementation>());
         }
@@ -48,4 +48,3 @@ namespace Test.It.While.Hosting.Your.Web.Application.HostStarters
         }
     }
 }
-#endif
