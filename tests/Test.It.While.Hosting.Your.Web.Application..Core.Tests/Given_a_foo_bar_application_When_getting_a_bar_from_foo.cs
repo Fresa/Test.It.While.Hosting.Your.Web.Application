@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
-using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 using Test.It.While.Hosting.Your.Web.Application.Utils;
 using WebApi.Core.Test.Application;
 using WebApi.Core.Test.Application.Services;
@@ -16,7 +15,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Core.Tests
     {
         public class When_getting_a_bar_from_foo :
             XUnitWindowsServiceSpecification<
-                DefaultWebApplicationHostStarter<Startup>>
+                DefaultTestWebApplicationHost<Startup>>
         {
             private string _idUsedToGet;
             private BarResponse _content;
@@ -32,7 +31,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Core.Tests
 
             protected override async Task WhenAsync(CancellationToken cancellationToken)
             {
-                _response = await Client.GetAsync("foo/fooId/bar", cancellationToken);
+                _response = await Server.CreateClient().GetAsync("foo/fooId/bar", cancellationToken);
                 _content = JsonConvert.DeserializeObject<BarResponse>(await _response.Content.ReadAsStringAsync());
             }
 

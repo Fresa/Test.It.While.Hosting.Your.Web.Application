@@ -1,82 +1,43 @@
-using System;
-using System.Collections.Concurrent;
-using System.Linq;
-using System.Net.Http;
-using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 
 namespace Test.It.While.Hosting.Your.Web.Application
 {
-    public abstract class WebApplicationSpecification<TWebApplicationHostStarter> : IDisposable
-        where TWebApplicationHostStarter : IWebApplicationHostStarter, new()
+    public abstract class WebApplicationSpecification<TWebApplicationHost> 
+        where TWebApplicationHost : IWebApplicationHost, new()
     {
-        private readonly ConcurrentBag<Exception> _exceptions = new ConcurrentBag<Exception>();
-
         public async Task SetConfigurationAsync(
-            TWebApplicationHostStarter webHostingFixture, 
+            TWebApplicationHost host, 
             CancellationToken cancellationToken = default)
         {
-            webHostingFixture.OnUnhandledException += RegisterException;
+            Server = await host.StartAsync(new SimpleTestConfigurer(Given), cancellationToken);
 
-            Client = webHostingFixture.Start(new SimpleTestConfigurer(Given));
-
-            await WhenAsync(cancellationToken);
-            // ReSharper disable once MethodSupportsCancellation
-            // Support simple override option that does not enforce optional arguments to be defined
-            await WhenAsync();
-
-            HandleExceptions();
-        }
-
-        private void RegisterException(Exception exception)
-        {
-            if (_exceptions.Contains(exception))
+            try
             {
-                return;
+                await WhenAsync(cancellationToken);
+                // ReSharper disable once MethodSupportsCancellation
+                // Support simple override option that does not enforce optional arguments to be defined
+                await WhenAsync();
             }
-
-            if (!(exception is AggregateException aggregateException))
+            finally
             {
-                _exceptions.Add(exception);
-                return;
+                await host.StopAsync(cancellationToken);
             }
-
-            foreach (var innerException in aggregateException.Flatten().InnerExceptions.Where(innerException => _exceptions.Contains(innerException) == false))
-            {
-                _exceptions.Add(innerException);
-            }
-        }
-
-        private void HandleExceptions()
-        {
-            if (_exceptions.Any() == false)
-            {
-                return;
-            }
-
-            if (_exceptions.Count == 1)
-            {
-                ExceptionDispatchInfo.Capture(_exceptions.First()).Throw();
-            }
-
-            throw new AggregateException(_exceptions);
         }
 
         /// <summary>
         /// HttpClient to communicate with the hosted web application.
         /// </summary>
-        protected HttpClient Client { get; private set; } = new HttpClient(new NotStartedHttpMessageHandler());
+        protected IServer Server { get; private set; } = new NoopServer();
 
         /// <summary>
-        /// OBS! <see cref="Client"/> is not ready here since the application is in bootstrapping phase where you control the service configuration.
+        /// OBS! <see cref="Server"/> is not ready here since the application is in bootstrapping phase where you control the service configuration.
         /// </summary>
         /// <param name="configurer">Service container</param>
         protected virtual void Given(IServiceContainer configurer) { }
 
         /// <summary>
-        /// Application has started and can be called with <see cref="Client"/>.
+        /// Application has started and can be called with <see cref="Server"/>.
         /// </summary>
         protected virtual Task WhenAsync(CancellationToken cancellationToken)
         {
@@ -84,21 +45,11 @@ namespace Test.It.While.Hosting.Your.Web.Application
         }
 
         /// <summary>
-        /// Application has started and can be called with <see cref="Client"/>.
+        /// Application has started and can be called with <see cref="Server"/>.
         /// </summary>
         protected virtual Task WhenAsync()
         {
             return Task.CompletedTask;
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            Client?.Dispose();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
         }
     }
 }

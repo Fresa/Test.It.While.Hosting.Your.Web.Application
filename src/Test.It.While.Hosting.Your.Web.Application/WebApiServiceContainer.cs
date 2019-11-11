@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Test.It.While.Hosting.Your.Web.Application.HostStarters
+namespace Test.It.While.Hosting.Your.Web.Application
 {
-    internal class WebApiServiceContainer : IServiceContainer
+    public class WebApiServiceContainer : IServiceContainer
     {
         private readonly IServiceCollection _serviceCollection;
 

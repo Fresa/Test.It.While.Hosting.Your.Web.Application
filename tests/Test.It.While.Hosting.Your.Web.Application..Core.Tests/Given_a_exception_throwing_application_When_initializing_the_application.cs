@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 using Test.It.While.Hosting.Your.Web.Application.Utils;
 using WebApi.Core.Test.Application;
 using Xunit;
@@ -12,7 +11,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Core.Tests
     {
         public class When_initializing_the_application :
             XUnitWindowsServiceSpecification<
-                DefaultWebApplicationHostStarter<ExceptionThrowingDuringSetupApplication>>
+                DefaultTestWebApplicationHost<ExceptionThrowingDuringSetupApplication>>
         {
             private Exception _exceptionCaught;
 

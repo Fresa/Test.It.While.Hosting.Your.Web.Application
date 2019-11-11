@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Test.It.While.Hosting.Your.Web.Application.HostStarters;
 using Test.It.While.Hosting.Your.Web.Application.Utils;
 using WebApi.Core.Test.Application;
 using Xunit;
@@ -14,7 +13,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Core.Tests
     {
         public class When_getting_a_bar_from_foo :
             XUnitWindowsServiceSpecification<
-                DefaultWebApplicationHostStarter<ExceptionThrowingDuringCallApplication>>
+                DefaultTestWebApplicationHost<ExceptionThrowingDuringCallApplication>>
         {
             private ReadOnlyCollection<Exception> _exceptions;
 
@@ -23,7 +22,7 @@ namespace Test.It.While.Hosting.Your.Web.Application.Core.Tests
 
             protected override async Task WhenAsync()
             {
-                await Client.GetAsync("foo/fooId/bar");
+                await Server.CreateClient().GetAsync("foo/fooId/bar");
             }
 
             [Fact]

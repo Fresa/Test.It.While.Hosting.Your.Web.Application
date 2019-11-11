@@ -19,7 +19,12 @@ namespace WebApi.Core.Test.Application
 
         public void Configure(IApplicationBuilder app)
         {
-            app
+            app.Use(async (context, next) =>
+                {
+                    // Do work that doesn't write to the Response.
+                    await next.Invoke();
+                    // Do logging or other work that doesn't write to the Response.
+                })
                 .UseRouting()
                 .UseEndpoints(routeBuilder =>
                     routeBuilder.MapControllers());
