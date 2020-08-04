@@ -8,20 +8,25 @@ namespace Test.It.While.Hosting.Your.Web.Application
     {
         public async Task SetConfigurationAsync(
             TWebApplicationHost host, 
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default,
+            CancellationToken stopCancellationToken = default)
         {
-            Server = await host.StartAsync(new SimpleTestConfigurer(Given), cancellationToken);
+            Server = await host.StartAsync(new SimpleTestConfigurer(Given), cancellationToken)
+                .ConfigureAwait(false);
 
             try
             {
-                await WhenAsync(cancellationToken);
+                await WhenAsync(cancellationToken)
+                    .ConfigureAwait(false);
                 // ReSharper disable once MethodSupportsCancellation
                 // Support simple override option that does not enforce optional arguments to be defined
-                await WhenAsync();
+                await WhenAsync()
+                    .ConfigureAwait(false);
             }
             finally
             {
-                await host.StopAsync(cancellationToken);
+                await host.StopAsync(stopCancellationToken)
+                    .ConfigureAwait(false);
             }
         }
 

@@ -25,7 +25,8 @@ namespace Test.It.While.Hosting.Your.Web.Application.Utils
                     });
                 _testServer = new TestServer(webHostBuilder);
 
-                await _testServer.Host.StartAsync(cancellationToken);
+                await _testServer.Host.StartAsync(cancellationToken)
+                    .ConfigureAwait(false);
             }
 
             return new TestServerWrapper(_testServer);
@@ -35,7 +36,8 @@ namespace Test.It.While.Hosting.Your.Web.Application.Utils
         {
             if (_testServer?.Host != null)
             {
-                await _testServer.Host.StopAsync(cancellationToken);
+                await _testServer.Host.StopAsync(cancellationToken)
+                    .ConfigureAwait(false);
             }
         }
 
