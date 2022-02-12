@@ -2,15 +2,18 @@
   <PropertyGroup>
     <TargetFrameworks>NETCOREAPP3.0</TargetFrameworks>
     <PackageReleaseNotes />
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageVersion></PackageVersion>
     <Version>1.0.0</Version>
     <Authors>Fredrik Arvidsson</Authors>
     <Company>FKAN Consulting AB</Company>
     <PackageTags>Test Testing Web Service Hosting</PackageTags>
-    <Description>Testing framework that hosts your Web Service during test execution</Description>
+    <Description>BDD Testing framework that hosts your Web Service during test execution</Description>
     <RepositoryUrl>https://github.com/Fresa/Test.It.While.Hosting.Your.Web.Application</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/Fresa/Test.It.While.Hosting.Your.Web.Application/blob/master/LICENSE</PackageLicenseUrl>
-    <Copyright>Copyright © 2017 Fredrik Arvidsson</Copyright>
+    <Copyright>Copyright © 2017-2022 Fredrik Arvidsson</Copyright>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <Configurations>Debug;Release;</Configurations>
