@@ -14,3 +14,11 @@ tests/Test.It.While.Hosting-Your.WebApplication.Utils/obj/
 tests/WebApi.Core.Test.Application/bin/
 tests/WebApi.Core.Test.Application/obj/
 _NCrunch_Test.It.While.Hosting.Your.Web.Application/
+tests/MVC.Test.Application/bin/
+tests/MVC.Test.Application/obj/
+Test.It.While.Hosting.Your.Web.Application.v3.ncrunchsolution.user
+src/Test.It.While.Hosting.Your.Web.Application/Test.It.While.Hosting.Your.Web.Application.csproj.user
+tests/MVC.Test.Application/MVC.Test.Application.csproj.user
+tests/Test.It.While.Hosting-Your.WebApplication.Utils/Test.It.While.Hosting.Your.Web.Application.Utils.csproj.user
+tests/WebApi.Core.Test.Application/WebApi.Core.Test.Application.csproj.user
+tests/WebApi.Test.Application/WebApi.Test.Application.csproj.user
